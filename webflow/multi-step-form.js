@@ -96,14 +96,23 @@ const formSliderValidationLogic = () => {
       const hasCheckboxes = checkboxes.length > 0;
       const hasRadios = radios.length > 0;
 
+      const isValidEmailFields = Array.from(requiredFields).every((field) => {
+        if (field.type === "email") {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailPattern.test(field.value);
+        }
+        return true;
+      });
+
       if (
-        (hasRequiredFields && hasCheckboxes && hasRadios && !areFieldsEmpty && checkedCheckbox && checkedRadio) ||
-        (hasRequiredFields && hasCheckboxes && !hasRadios && !areFieldsEmpty && checkedCheckbox) ||
-        (hasRequiredFields && !hasCheckboxes && hasRadios && !areFieldsEmpty && checkedRadio) ||
-        (!hasRequiredFields && hasCheckboxes && hasRadios && checkedCheckbox && checkedRadio) ||
-        (!hasRequiredFields && hasCheckboxes && !hasRadios && checkedCheckbox) ||
-        (!hasRequiredFields && !hasCheckboxes && hasRadios && checkedRadio) ||
-        (hasRequiredFields && !hasCheckboxes && !hasRadios && !areFieldsEmpty)
+        isValidEmailFields &&
+        ((hasRequiredFields && hasCheckboxes && hasRadios && !areFieldsEmpty && checkedCheckbox && checkedRadio) ||
+          (hasRequiredFields && hasCheckboxes && !hasRadios && !areFieldsEmpty && checkedCheckbox) ||
+          (hasRequiredFields && !hasCheckboxes && hasRadios && !areFieldsEmpty && checkedRadio) ||
+          (!hasRequiredFields && hasCheckboxes && hasRadios && checkedCheckbox && checkedRadio) ||
+          (!hasRequiredFields && hasCheckboxes && !hasRadios && checkedCheckbox) ||
+          (!hasRequiredFields && !hasCheckboxes && hasRadios && checkedRadio) ||
+          (hasRequiredFields && !hasCheckboxes && !hasRadios && !areFieldsEmpty))
       ) {
         enableNextButton();
       } else {
@@ -128,6 +137,10 @@ const formSliderValidationLogic = () => {
     requiredFields.forEach((field) => field.addEventListener("input", validateForm));
     checkboxes.forEach((checkbox) => checkbox.addEventListener("input", validateForm));
     radios.forEach((radio) => radio.addEventListener("input", validateForm));
+
+    if (requiredFields.length === 0 && checkboxes.length === 0 && radios.length === 0) {
+      enableNextButton();
+    }
   });
 };
 
