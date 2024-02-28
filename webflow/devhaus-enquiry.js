@@ -23,7 +23,8 @@ form.addEventListener('submit', (e) => {
     .map(key => key.replace('Business-Operating-Country-', ''))
     .join(', ');
 
-  const block = {
+  const payload = {
+    "channel": `${process.env.SLACK_CHANNEL}`,
     "blocks": [
       {
         "type": "header",
@@ -274,11 +275,12 @@ form.addEventListener('submit', (e) => {
     ]
   }
 
-  fetch('https://hooks.slack.com/services/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', {
-    method: 'POST',
+  fetch("https://slack.com/api/chat.postMessage", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-type": "application/json",
+      "Authorization": `Bearer ${process.env.SLACK_TOKEN}`
     },
-    body: JSON.stringify(block)
+    body: JSON.stringify(payload)
   })
 });
