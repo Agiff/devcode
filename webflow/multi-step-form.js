@@ -1,8 +1,8 @@
 var Webflow = Webflow || [];
 Webflow.push(function() {
- var l = $('#flowbaseSlider .w-slider-arrow-left');
- var r = $('#flowbaseSlider .w-slider-arrow-right');
- $('#flowbaseSlider')
+ var l = $('[multi-step-form-wrapper] .w-slider-arrow-left');
+ var r = $('[multi-step-form-wrapper] .w-slider-arrow-right');
+ $('[multi-step-form-wrapper]')
    .on('click', '.slider-left', function() {
      l.trigger('tap');
    })
