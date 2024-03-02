@@ -11,31 +11,34 @@ Webflow.push(function() {
    });
 });
 
-$("#range_price").ionRangeSlider({
-    grid: true,
-    min: 10000,
-    max: 100000,
-    from: 2500,
-    prefix: "S$ ",
-    postfix: "+",
-    hide_min_max: true,
-    decorate_both: true,
-    force_edges: true,
-    step: 50
-});
+if (typeof $.fn.ionRangeSlider === 'function') {
+  $("#range_price").ionRangeSlider({
+      grid: true,
+      min: 10000,
+      max: 100000,
+      from: 2500,
+      prefix: "S$ ",
+      postfix: "+",
+      hide_min_max: true,
+      decorate_both: true,
+      force_edges: true,
+      step: 50
+  });
 
-$("#range_date").ionRangeSlider({
-    grid: true,
-    min: 0,
-    max: 12,
-    from_min: 0.5,
-    from: 1,
-    prefix: "M",
-    postfix: " month(s)",
-    hide_min_max: true,
-    force_edges: true,
-    step: 0.5
-});
+  $("#range_date").ionRangeSlider({
+      grid: true,
+      min: 0,
+      max: 12,
+      from_min: 0.5,
+      from: 1,
+      prefix: "M",
+      postfix: " month(s)",
+      hide_min_max: true,
+      force_edges: true,
+      step: 0.5
+  });
+}
+
 
 const checkboxSingleChoice = () => {
   const checkboxWrappers = document.querySelectorAll(
